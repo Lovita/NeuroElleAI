@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ==========================================================
+   NEURO ELLE AI — DESIGN TOKENS
+   Deep Teal authority + Warm Ivory calm + restrained Coral accent.
+   Manrope for structure/headings/UI, Inter for body,
+   DM Serif Display used sparingly for editorial feature headlines.
+   ========================================================== */
+
+@theme {
+  --color-teal: #0f4c5c;
+  --color-teal-dark: #0a3742;
+  --color-aqua: #d9f0ee;
+  --color-ivory: #faf7f2;
+  --color-coral: #e98775;
+  --color-coral-dark: #c96450;
+  --color-charcoal: #253238;
+  --color-sage: #a8c7b8;
+  --color-plum: #7b5c7e;
+
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: "DM Serif Display", ui-serif, Georgia, serif;
+
+  --breakpoint-xs: 420px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Visible, brand-consistent focus states for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Skip link for keyboard/screen-reader users */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-teal);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  z-index: 100;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+::selection {
+  background: var(--color-coral);
+  color: white;
+}
+
+/* Signature hero element: waveform draws in, then nodes + links fade up */
+.signal-trace-path {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draw-trace 1.8s ease-out forwards;
+}
+.signal-trace-node {
+  opacity: 0;
+  transform-origin: center;
+  animation: node-in 0.5s ease-out forwards;
+}
+.signal-trace-links {
+  opacity: 0;
+  animation: links-in 0.8s ease-out forwards;
+  animation-delay: 1.6s;
+}
+@keyframes draw-trace {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes node-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes links-in {
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signal-trace-path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .signal-trace-node,
+  .signal-trace-links {
+    opacity: 1;
+    animation: none;
+  }
+}
